@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <title>Refund</title>
+  </head>
+
+  <body>
+    <main>
+      <img src="./img/logo_casco.png" alt="Casco_logo" class="logo" />
+
+      <section>
+        <form>
+          <h1>Requisição de Materiais</h1>
+          <p>
+            Precisando de materiais? Esqueça do papel! Agora você faz sua solicitação online, de onde estiver. 
+          </p>
+
+          <fieldset>
+            <legend>Descrição do Material</legend>
+            <input type="text" id="expense" name="expense" required />
+          </fieldset>
+
+          <div class="inputs-row">
+            <fieldset>
+              <legend>Setor</legend>
+              <select id="category" name="category" required>
+                <option value="" disabled selected hidden>Selecione</option>
+                <option value="Elétrico">Elétrico</option>
+                <option value="accommodation">Vets</option>
+                <option value="services">PVC</option>
+                <option value="transport">Embalagem</option>
+                <option value="others">Acabamento</option>
+              </select>
+            </fieldset>
+
+            <fieldset>
+              <legend>Quantidade</legend>
+              <input
+                type="text"
+                name="amount"
+                id="amount"
+                placeholder="0" 
+                required
+              />
+            </fieldset>
+          </div>
+
+          <button type="submit">Adicionar Material</button>
+        </form>
+
+        <aside>
+          <header>
+            <p>
+              Quantidade de Materiais Solicitados <i>&bullet;</i>
+              <span>0 Material</span>
+            </p>
+            </header>
+
+          <ul>
+          </ul>
+        </aside>
+      </section>
+    </main>
+    <script src="scripts.js"></script>
+  </body>
+</html>
