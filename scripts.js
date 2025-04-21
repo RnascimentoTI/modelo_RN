@@ -1,7 +1,5 @@
 // Inicializa o EmailJS
-(function () {
-  emailjs.init("qraTG-hUuFYvZpNQT");
-})();
+emailjs.init("qraTG-hUuFYvZpNQT");
 
 // Seleciona os elementos do formulário.
 const form = document.querySelector("form");
@@ -9,17 +7,17 @@ const amount = document.getElementById("amount");
 const expense = document.getElementById("expense");
 const category = document.getElementById("category");
 
-// Lista
+// Seleciona os elementos da lista
 const expenseList = document.querySelector("ul");
 const expensesQuantity = document.querySelector("aside header p span");
 
-// Permitir apenas números na quantidade
+// Captura o evento de input e permite apenas números inteiros
 amount.oninput = () => {
-  let value = amount.value.replace(/\D/g, "");
+  let value = amount.value.replace(/\D/g, ""); // remove tudo que não for dígito
   amount.value = value;
 };
 
-// Submeter formulário
+// Captura o evento de submit do formulário
 form.onsubmit = (event) => {
   event.preventDefault();
 
@@ -35,7 +33,7 @@ form.onsubmit = (event) => {
   expenseAdd(newExpense);
 };
 
-// Adiciona novo item
+// Adiciona um novo item na lista
 function expenseAdd(newExpense) {
   try {
     const expenseItem = document.createElement("li");
@@ -72,61 +70,64 @@ function expenseAdd(newExpense) {
     updateQuantity();
   } catch (error) {
     alert("Não foi possível adicionar o material.");
-    console.error(error);
+    console.log(error);
   }
 }
 
-// Atualiza contador
+// Atualiza somente a quantidade de Materiais
 function updateQuantity() {
   const items = expenseList.children;
   expensesQuantity.textContent = `${items.length} ${items.length > 1 ? "Materiais" : "Material"}`;
 }
 
-// Remover item da lista
+// Evento que captura o clique nos itens da lista
 expenseList.addEventListener("click", function (event) {
   if (event.target.classList.contains("remove-icon")) {
     const item = event.target.closest(".expense");
     item.remove();
+    updateQuantity();
   }
-  updateQuantity();
 });
 
-// Limpar inputs
+// Limpa o formulário
 function formClear() {
   expense.value = "";
+  // category.value = "";
   amount.value = "";
   expense.focus();
 }
 
-// Enviar via EmailJS
+// Envia os dados usando EmailJS ao clicar no botão "Enviar"
 const sendButton = document.getElementById("sendButton");
 sendButton.addEventListener("click", function () {
   const items = expenseList.children;
+
   if (items.length === 0) {
     alert("Adicione pelo menos um material antes de enviar.");
     return;
   }
 
-  let listaFormatada = "";
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
+  let listaMateriais = "";
+
+  for (let item of items) {
     const descricao = item.querySelector("strong").textContent;
     const setor = item.querySelector("span").textContent;
-    const qtd = item.querySelector(".expense-amount").textContent;
+    const quantidade = item.querySelector(".expense-amount").textContent;
 
-    listaFormatada += `#${i + 1} - ${descricao} | Setor: ${setor} | Qtd: ${qtd}\n`;
+    listaMateriais += `• ${descricao} | Setor: ${setor} | Quantidade: ${quantidade}\n`;
   }
 
-  emailjs.send("service_xnl6g1s", "template_12s0ni8", {
-    message: listaFormatada,
-  })
-  .then(() => {
-    alert("Materiais enviados com sucesso!");
-    expenseList.innerHTML = "";
-    updateQuantity();
-  })
-  .catch((error) => {
-    alert("Erro ao enviar materiais. Tente novamente.");
-    console.error(error);
-  });
+  const templateParams = {
+    message: listaMateriais,
+  };
+
+  emailjs
+    .send("service_xnl6g1s", "template_12s0ni8", templateParams)
+    .then(() => {
+      alert("Materiais enviados com sucesso!");
+    })
+    .catch((error) => {
+      console.error("Erro ao enviar:", error);
+      alert("Falha ao enviar materiais.");
+    });
 });
