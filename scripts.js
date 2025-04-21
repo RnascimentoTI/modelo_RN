@@ -114,7 +114,7 @@ sendButton.addEventListener("click", function () {
     const setor = item.querySelector("span").textContent;
     const quantidade = item.querySelector(".expense-amount").textContent;
 
-    listaMateriais += `• ${descricao} | Setor: ${setor} | Quantidade: ${quantidade}\n`;
+    listaMateriais += `Setor: ${setor} | Material: ${descricao} | Quantidade: ${quantidade}\n`;
   }
 
   const templateParams = {
