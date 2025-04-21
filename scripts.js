@@ -86,7 +86,7 @@ expenseList.addEventListener("click", function (event) {
   updateQuantity();
 });
 
-// Função para limpar o formulário após a submissão
+// Limpa o formulário
 function formClear() {
   expense.value = "";
   category.value = "";
@@ -94,43 +94,41 @@ function formClear() {
   expense.focus();
 }
 
-// Botão Enviar
+// Enviar os dados para o Formcarry quando o botão Enviar for clicado
 const sendButton = document.getElementById("sendButton");
-
 sendButton.addEventListener("click", function () {
-  const materials = [];
-  
-  // Pega todos os itens na lista
   const items = expenseList.children;
+  const materiais = [];
 
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
-
-    // Extrai informações de cada item
-    const expenseItem = {
-      expense: item.querySelector("strong").textContent,
-      category: item.querySelector("span").textContent,
-      amount: item.querySelector(".expense-amount").textContent,
+  for (let item of items) {
+    const material = {
+      descricao: item.querySelector("strong").textContent,
+      setor: item.querySelector("span").textContent,
+      quantidade: item.querySelector(".expense-amount").textContent,
     };
-
-    materials.push(expenseItem);
+    materiais.push(material);
   }
 
-  // Envia os dados via Fetch para o serviço de FormCarry
-  // Aqui você pode substituir pelo URL de onde deseja enviar os dados
+  const data = { materiais };
+
+  // Enviar os dados para o Formcarry
   fetch("https://formcarry.com/s/CQCMWqykwZZ", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Accept": "application/json",
     },
-    body: JSON.stringify({ materials }),
+    body: JSON.stringify(data),
   })
-    .then(response => response.json())
-    .then(data => {
-      alert("Dados enviados com sucesso!");
+    .then((response) => {
+      if (response.ok) {
+        alert("Materiais enviados com sucesso!");
+      } else {
+        throw new Error("Erro ao enviar. Código: " + response.status);
+      }
     })
-    .catch(error => {
-      alert("Erro ao enviar os dados.");
+    .catch((error) => {
+      alert("Falha ao enviar materiais.");
       console.error(error);
     });
 });
