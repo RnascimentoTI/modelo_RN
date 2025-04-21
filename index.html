@@ -13,24 +13,22 @@
     />
 
     <link rel="stylesheet" href="styles.css" />
-
     <title>Requisição de Materiais</title>
-
-    
   </head>
 
   <body>
+    <!-- Botão Enviar fixo no topo -->
+    <button class="botao-envio" id="sendButton" type="button">Enviar</button>
+
     <main>
       <img src="./img/logo_casco.png" alt="Casco_logo" class="logo" />
-
-      <!-- Botão Enviar no topo da página -->
-      <button class="botao-envio" id="sendButton" type="button">Enviar</button>
 
       <section>
         <form id="materialForm">
           <h1>Requisição de Materiais</h1>
           <p>
-            Precisando de materiais? Esqueça do papel! Agora você faz sua solicitação online, de onde estiver.
+            Precisando de materiais? Esqueça do papel! Agora você faz sua
+            solicitação online, de onde estiver.
           </p>
 
           <fieldset>
@@ -43,10 +41,10 @@
               <legend>Setor</legend>
               <select id="category" name="category" required>
                 <option value="" disabled selected hidden>Selecione</option>
-                <option value="Elétrico">Elétrico</option>
-                <option value="accommodation">Vets</option>
-                <option value="services">PVC</option>
-                <option value="transport">Embalagem</option>
+                <option value="others">Elétrico</option>
+                <option value="others">Vets</option>
+                <option value="others">PVC</option>
+                <option value="others">Embalagem</option>
                 <option value="others">Acabamento</option>
               </select>
             </fieldset>
@@ -74,12 +72,11 @@
             </p>
           </header>
 
-          <ul>
-          </ul>
+          <ul id="listaMateriais"></ul>
         </aside>
       </section>
     </main>
-    
+
     <script src="scripts.js"></script>
   </body>
 </html>
