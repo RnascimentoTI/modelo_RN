@@ -89,7 +89,7 @@ expenseList.addEventListener("click", function (event) {
 // Limpa o formulário
 function formClear() {
   expense.value = "";
-  category.value = "";
+  // category.value = "";
   amount.value = "";
   expense.focus();
 }
