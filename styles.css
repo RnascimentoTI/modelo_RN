@@ -156,9 +156,9 @@ form button:last-child {
 
 /* === BOTÃO DE ENVIO FIXO E RESPONSIVO === */
 #sendButton {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
+  position: fixed;               /* Fixa na janela de visualização */
+  top: 1rem;                     /* Distância do topo */
+  right: 1rem;                   /* Distância da direita */
   padding: 0.75rem 1.25rem;
   background-color: #1f8459;
   color: white;
@@ -167,7 +167,7 @@ form button:last-child {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  z-index: 999;
+  z-index: 9999;                 /* Garante que fique acima de tudo */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
@@ -336,10 +336,12 @@ aside ul {
     align-items: center;
   }
 
-  #sendButton {
-    top: 0.75rem;
-    right: 0.75rem;
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
+  @media (max-width: 620px) {
+    #sendButton {
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+    }
   }
 }
