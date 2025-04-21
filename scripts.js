@@ -1,22 +1,22 @@
 // Seleciona os elementos do formulário.
-const form = document.querySelector("form")
-const amount = document.getElementById("amount")
-const expense = document.getElementById("expense")
-const category = document.getElementById("category")
+const form = document.querySelector("form");
+const amount = document.getElementById("amount");
+const expense = document.getElementById("expense");
+const category = document.getElementById("category");
 
-//Seleciona os elementos da lista
-const expenseList = document.querySelector("ul")
-const expensesQuantity = document.querySelector("aside header p span")
+// Seleciona os elementos da lista
+const expenseList = document.querySelector("ul");
+const expensesQuantity = document.querySelector("aside header p span");
 
 // Captura o evento de input e permite apenas números inteiros
 amount.oninput = () => {
-  let value = amount.value.replace(/\D/g, "") // remove tudo que não for dígito
-  amount.value = value
-}
+  let value = amount.value.replace(/\D/g, ""); // remove tudo que não for dígito
+  amount.value = value;
+};
 
 // Captura o evento de submit do formulário
 form.onsubmit = (event) => {
-  event.preventDefault()
+  event.preventDefault();
 
   const newExpense = {
     id: new Date().getTime(),
@@ -25,70 +25,112 @@ form.onsubmit = (event) => {
     category_name: category.options[category.selectedIndex].text,
     amount: amount.value,
     created_at: new Date(),
-  }
+  };
 
-  expenseAdd(newExpense)
-}
+  expenseAdd(newExpense);
+};
 
 // Adiciona um novo item na lista
 function expenseAdd(newExpense) {
   try {
-    const expenseItem = document.createElement("li")
-    expenseItem.classList.add("expense")
+    const expenseItem = document.createElement("li");
+    expenseItem.classList.add("expense");
 
-    const expenseIcon = document.createElement("img")
-    expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`)
-    expenseIcon.setAttribute("alt", newExpense.category_name)
+    const expenseIcon = document.createElement("img");
+    expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`);
+    expenseIcon.setAttribute("alt", newExpense.category_name);
 
-    const expenseInfo = document.createElement("div")
-    expenseInfo.classList.add("expense-info")
+    const expenseInfo = document.createElement("div");
+    expenseInfo.classList.add("expense-info");
 
-    const expenseName = document.createElement("strong")
-    expenseName.textContent = newExpense.expense
+    const expenseName = document.createElement("strong");
+    expenseName.textContent = newExpense.expense;
 
-    const expenseCategory = document.createElement("span")
-    expenseCategory.textContent = newExpense.category_name
+    const expenseCategory = document.createElement("span");
+    expenseCategory.textContent = newExpense.category_name;
 
-    expenseInfo.append(expenseName, expenseCategory)
+    expenseInfo.append(expenseName, expenseCategory);
 
-    const expenseAmount = document.createElement("span")
-    expenseAmount.classList.add("expense-amount")
-    expenseAmount.textContent = parseInt(newExpense.amount)
+    const expenseAmount = document.createElement("span");
+    expenseAmount.classList.add("expense-amount");
+    expenseAmount.textContent = parseInt(newExpense.amount);
 
-    const removeIcon = document.createElement("img")
-    removeIcon.setAttribute("src", "img/remove.svg")
-    removeIcon.setAttribute("alt", "remover")
-    removeIcon.classList.add("remove-icon")
+    const removeIcon = document.createElement("img");
+    removeIcon.setAttribute("src", "img/remove.svg");
+    removeIcon.setAttribute("alt", "remover");
+    removeIcon.classList.add("remove-icon");
 
-    expenseItem.append(expenseIcon, expenseInfo, expenseAmount, removeIcon)
-    expenseList.append(expenseItem)
+    expenseItem.append(expenseIcon, expenseInfo, expenseAmount, removeIcon);
+    expenseList.append(expenseItem);
 
-    formClear()
-    updateQuantity()
+    formClear();
+    updateQuantity();
   } catch (error) {
-    alert("Não foi possível adicionar a material.")
-    console.log(error)
+    alert("Não foi possível adicionar o material.");
+    console.log(error);
   }
 }
 
 // Atualiza somente a quantidade de Materiais
 function updateQuantity() {
-  const items = expenseList.children
-  expensesQuantity.textContent = `${items.length} ${items.length > 1 ? "Materiais" : "Material"}`
+  const items = expenseList.children;
+  expensesQuantity.textContent = `${items.length} ${items.length > 1 ? "Materiais" : "Material"}`;
 }
 
 // Evento que captura o clique nos itens da lista
 expenseList.addEventListener("click", function (event) {
   if (event.target.classList.contains("remove-icon")) {
-    const item = event.target.closest(".expense")
-    item.remove()
+    const item = event.target.closest(".expense");
+    item.remove();
   }
-  updateQuantity()
-})
+  updateQuantity();
+});
 
+// Função para limpar o formulário após a submissão
 function formClear() {
-  expense.value = ""
-  category.value = ""
-  amount.value = ""
-  expense.focus()
+  expense.value = "";
+  category.value = "";
+  amount.value = "";
+  expense.focus();
 }
+
+// Botão Enviar
+const sendButton = document.getElementById("sendButton");
+
+sendButton.addEventListener("click", function () {
+  const materials = [];
+  
+  // Pega todos os itens na lista
+  const items = expenseList.children;
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+
+    // Extrai informações de cada item
+    const expenseItem = {
+      expense: item.querySelector("strong").textContent,
+      category: item.querySelector("span").textContent,
+      amount: item.querySelector(".expense-amount").textContent,
+    };
+
+    materials.push(expenseItem);
+  }
+
+  // Envia os dados via Fetch para o serviço de FormCarry
+  // Aqui você pode substituir pelo URL de onde deseja enviar os dados
+  fetch("https://formcarry.com/s/CQCMWqykwZZ", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ materials }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      alert("Dados enviados com sucesso!");
+    })
+    .catch(error => {
+      alert("Erro ao enviar os dados.");
+      console.error(error);
+    });
+});

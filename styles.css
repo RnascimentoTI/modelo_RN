@@ -159,6 +159,25 @@ form button:last-child {
   margin-top: 2rem;
 }
 
+#sendButton {
+  position: fixed;         /* Fixa o botão em relação à janela de visualização */
+  top: 20px;               /* Define a distância do topo */
+  right: 20px;             /* Define a distância da borda direita */
+  padding: 10px 20px;      /* Adiciona preenchimento ao botão */
+  background-color: #1f8459; /* Cor de fundo */
+  color: white;            /* Cor do texto */
+  border: none;            /* Remove a borda padrão */
+  border-radius: 5px;      /* Bordas arredondadas */
+  font-size: 16px;         /* Define o tamanho da fonte */
+  cursor: pointer;        /* Torna o cursor um ponteiro quando passa sobre o botão */
+  z-index: 999;            /* Garante que o botão fique sobre outros elementos */
+}
+
+#sendButton:hover {
+  background-color: #2cb178; /* Cor do botão ao passar o mouse */
+}
+
+
 aside {
   background-color: #f9fbfa;
   border-radius: 1rem;

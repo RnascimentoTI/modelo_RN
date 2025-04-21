@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,18 +14,23 @@
 
     <link rel="stylesheet" href="styles.css" />
 
-    <title>Refund</title>
+    <title>Requisição de Materiais</title>
+
+    
   </head>
 
   <body>
     <main>
       <img src="./img/logo_casco.png" alt="Casco_logo" class="logo" />
 
+      <!-- Botão Enviar no topo da página -->
+      <button class="botao-envio" id="sendButton" type="button">Enviar</button>
+
       <section>
-        <form>
+        <form id="materialForm">
           <h1>Requisição de Materiais</h1>
           <p>
-            Precisando de materiais? Esqueça do papel! Agora você faz sua solicitação online, de onde estiver. 
+            Precisando de materiais? Esqueça do papel! Agora você faz sua solicitação online, de onde estiver.
           </p>
 
           <fieldset>
@@ -52,7 +57,7 @@
                 type="text"
                 name="amount"
                 id="amount"
-                placeholder="0" 
+                placeholder="0"
                 required
               />
             </fieldset>
@@ -67,13 +72,14 @@
               Quantidade de Materiais Solicitados <i>&bullet;</i>
               <span>0 Material</span>
             </p>
-            </header>
+          </header>
 
           <ul>
           </ul>
         </aside>
       </section>
     </main>
+    
     <script src="scripts.js"></script>
   </body>
 </html>
