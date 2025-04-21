@@ -141,7 +141,7 @@ form button {
   height: 3rem;
   border-radius: 0.5rem;
   border: none;
-  font-size: 0.87rem;
+  font-size: 16px;
   color: #ffffff;
   background-color: #1f8459;
   font-weight: 700;
@@ -153,6 +153,8 @@ form button {
 
 button:hover {
   background-color: #2cb178;
+  transform: scale(1.1);
+  transition: 0.3s;
 }
 
 form button:last-child {
@@ -161,20 +163,23 @@ form button:last-child {
 
 #sendButton {
   position: fixed;         /* Fixa o botão em relação à janela de visualização */
-  top: 20px;               /* Define a distância do topo */
-  right: 20px;             /* Define a distância da borda direita */
+  top: 100px;               /* Define a distância do topo */
+  right: 230px;             /* Define a distância da borda direita */
   padding: 10px 20px;      /* Adiciona preenchimento ao botão */
   background-color: #1f8459; /* Cor de fundo */
   color: white;            /* Cor do texto */
   border: none;            /* Remove a borda padrão */
   border-radius: 5px;      /* Bordas arredondadas */
   font-size: 16px;         /* Define o tamanho da fonte */
+  font-weight: 700;  
   cursor: pointer;        /* Torna o cursor um ponteiro quando passa sobre o botão */
   z-index: 999;            /* Garante que o botão fique sobre outros elementos */
 }
 
 #sendButton:hover {
   background-color: #2cb178; /* Cor do botão ao passar o mouse */
+  transform: scale(1.1);
+  transition: 0.3s;
 }
 
 
