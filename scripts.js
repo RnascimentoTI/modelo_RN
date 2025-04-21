@@ -109,16 +109,19 @@ sendButton.addEventListener("click", function () {
     materiais.push(material);
   }
 
-  const data = { materiais };
+  // Formatando o corpo da requisição
+  const data = new FormData();
+  // Adicionando um campo para os materiais
+  materiais.forEach((material, index) => {
+    data.append(`material[${index}][descricao]`, material.descricao);
+    data.append(`material[${index}][setor]`, material.setor);
+    data.append(`material[${index}][quantidade]`, material.quantidade);
+  });
 
   // Enviar os dados para o Formcarry
   fetch("https://formcarry.com/s/CQCMWqykwZZ", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-    },
-    body: JSON.stringify(data),
+    body: data,
   })
     .then((response) => {
       if (response.ok) {
@@ -132,3 +135,4 @@ sendButton.addEventListener("click", function () {
       console.error(error);
     });
 });
+
